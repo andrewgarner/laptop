@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 set -e
 
@@ -23,12 +23,12 @@ update_dotfiles () {
   local dotfiles_path;
   dotfiles_path="$HOME/dotfiles"
 
-  if [ ! -d dotfiles_path ]; then
+  if [ ! -d "$dotfiles_path" ]; then
     echo "Cloning 'andrewgarner/dotfiles' from GitHub ..."
     git clone --recurse-submodules https://github.com/andrewgarner/dotfiles.git dotfiles_path
 
     echo "Hiding '$dotfiles_path' from macOS Finder ..."
-    chflags hidden dotfiles_path
+    chflags hidden "$dotfiles_path"
   fi
 
   echo "Installing dotfiles ..."
