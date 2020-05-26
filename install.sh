@@ -41,8 +41,10 @@ update_packages () {
 }
 
 update_shell() {
+  local shell_name="$1";
+  local shell_login"$2";
   local shell_path;
-  shell_path="$(command -v fish)"
+  shell_path="$(command -v "$shell_name")"
 
   if [ "$SHELL" != shell_path ]; then
     if ! grep "$shell_path" /etc/shells > /dev/null 2>&1 ; then
@@ -50,8 +52,9 @@ update_shell() {
       sudo sh -c "echo $shell_path >> /etc/shells"
     fi
 
-    if [ "$SHELL" != "$shell_path" ]; then
-      echo "Changing your shell to fish ..."
+    # shellcheck disable=SC2154
+    if [ -n "${shell_login}" ] && [ "$SHELL" != "$shell_path" ]; then
+      echo "Changing your shell to $shell_name ..."
       sudo chsh -s "$shell_path" "$USER"
     fi
   fi
@@ -61,4 +64,5 @@ configure_homebrew
 configure_stow
 update_dotfiles
 update_packages
-update_shell
+update_shell bash
+update_shell fish true
