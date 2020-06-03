@@ -60,9 +60,16 @@ update_shell() {
   fi
 }
 
+update_tool_versions() {
+  if ! command -v asdf >/dev/null; then
+    asdf install
+  fi
+}
+
 configure_homebrew
 configure_stow
 update_dotfiles
 update_packages
 update_shell bash
 update_shell fish true
+update_tool_versions
