@@ -2,7 +2,7 @@
 
 set -e
 
-configure_homebrew () {
+configure_homebrew() {
   if ! command -v brew >/dev/null; then
     echo "Installing Homebrew ..."
     curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh | sh
@@ -12,15 +12,15 @@ configure_homebrew () {
   fi
 }
 
-configure_stow () {
-  if ! command -v stow > /dev/null; then
+configure_stow() {
+  if ! command -v stow >/dev/null; then
     echo "Installing GNU Stow ..."
     brew install stow
   fi
 }
 
-update_dotfiles () {
-  local dotfiles_path;
+update_dotfiles() {
+  local dotfiles_path
   dotfiles_path="$HOME/dotfiles"
 
   if [ ! -d "$dotfiles_path" ]; then
@@ -35,19 +35,19 @@ update_dotfiles () {
   sh -c "cd $dotfiles_path && ./install.sh"
 }
 
-update_packages () {
+update_packages() {
   echo "Installing or upgrading all dependencies in Brewfile ..."
   brew bundle install --global
 }
 
 update_shell() {
-  local shell_name="$1";
-  local shell_login"$2";
-  local shell_path;
+  local shell_name="$1"
+  local shell_login"$2"
+  local shell_path
   shell_path="$(command -v "$shell_name")"
 
   if [ "$SHELL" != shell_path ]; then
-    if ! grep "$shell_path" /etc/shells > /dev/null 2>&1 ; then
+    if ! grep "$shell_path" /etc/shells >/dev/null 2>&1; then
       echo "Adding '$shell_path' to /etc/shells ..."
       sudo sh -c "echo $shell_path >> /etc/shells"
     fi
