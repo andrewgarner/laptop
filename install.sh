@@ -63,7 +63,7 @@ update_dotfiles() {
 
   if [ ! -d "$dotfiles_path" ]; then
     echo "Cloning 'andrewgarner/dotfiles' from GitHub ..."
-    git clone --recurse-submodules https://github.com/andrewgarner/dotfiles.git dotfiles_path
+    git clone --recurse-submodules https://github.com/andrewgarner/dotfiles.git "$dotfiles_path"
     echo
 
     echo "Hiding '$dotfiles_path' from macOS Finder ..."
