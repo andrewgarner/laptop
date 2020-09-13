@@ -115,8 +115,26 @@ update_shell() {
 }
 
 update_tool_versions() {
-  if ! command -v asdf >/dev/null; then
-    bash -c '${ASDF_DATA_DIR:=$HOME/.asdf}/plugins/nodejs/bin/import-release-team-keyring'
+  if command -v asdf >/dev/null; then
+    while read -r plugin _; do
+      if ! asdf plugin list | grep "$plugin" >/dev/null 2>&1; then
+        echo "Installing $plugin asdf plugin"
+        asdf plugin add "$plugin"
+        echo
+
+        if [ "$plugin" == "nodejs" ]; then
+          echo "Importing the Node.js release team's OpenPGP keys to main keyring ..."
+          bash -c '${ASDF_DATA_DIR:=$HOME/.asdf}/plugins/nodejs/bin/import-release-team-keyring'
+          echo
+        fi
+      fi
+    done <"$HOME/.tool-versions"
+
+    echo "Updating asdf plugins ..."
+    asdf plugin update --all
+    echo
+
+    echo "Installing default tool versions ..."
     asdf install
     echo
   fi
