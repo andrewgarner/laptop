@@ -90,6 +90,10 @@ update_packages() {
     brew bundle install --file=~/dotfiles/brew/.Brewfile-personal
     echo
   fi
+
+  echo "Cleaning up outdated downloads and old versions of installed formulae ..."
+  brew bundle cleanup
+  echo
 }
 
 update_shell() {
