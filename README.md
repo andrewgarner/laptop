@@ -9,5 +9,5 @@ Automating my development environment.
 ## Install
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/andrewgarner/laptop/master/install.sh | sh
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/andrewgarner/laptop/master/install.sh)"
 ```
