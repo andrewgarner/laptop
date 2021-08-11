@@ -92,7 +92,7 @@ update_packages() {
   fi
 
   echo "Cleaning up outdated downloads and old versions of installed formulae ..."
-  brew bundle cleanup
+  brew cleanup
   echo
 }
 
