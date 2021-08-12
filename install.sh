@@ -57,6 +57,15 @@ configure_stow() {
   fi
 }
 
+configure_sudo_touchid() {
+  if ! grep "pam_tid" /etc/pam.d/sudo >/dev/null 2>&1; then
+    echo "Configuring Touch ID for sudo ..."
+    brew install gnu-sed --quiet
+    sudo sh -c "gsed -i '2 i auth       sufficient     pam_tid.so' /etc/pam.d/sudo"
+    echo
+  fi
+}
+
 update_dotfiles() {
   local dotfiles_path
   dotfiles_path="$HOME/dotfiles"
@@ -146,6 +155,7 @@ update_tool_versions() {
 
 configure_homebrew
 configure_stow
+configure_sudo_touchid
 update_dotfiles
 update_packages
 update_shell bash
